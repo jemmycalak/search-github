@@ -11,7 +11,6 @@ abstract class BaseViewModel(
     private val dispatchers: AppDispatchers
 ) : ViewModel() {
 
-
     protected val _errorHandler = MutableLiveData<Event<ErrorHandler>>()
     val errorHandler: LiveData<Event<ErrorHandler>> get() = _errorHandler
 

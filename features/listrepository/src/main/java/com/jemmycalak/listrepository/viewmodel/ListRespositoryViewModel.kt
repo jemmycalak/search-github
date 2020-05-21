@@ -19,6 +19,8 @@ class ListRespositoryViewModel(
     private val service: Services
 ) : BaseViewModel(dispatchers) {
 
+    val keyword = MutableLiveData<String>("github")
+
     private val _repositoryMediator = MediatorLiveData<Resource<Repository>>()
     private var repositoryResource: LiveData<Resource<Repository>> =
         MutableLiveData<Resource<Repository>>()

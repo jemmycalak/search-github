@@ -1,16 +1,16 @@
 package com.jemmycalak.listrepository.fragment
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jemmycalak.common.base.BaseFragment
 import com.jemmycalak.common.base.BaseViewModel
+import com.jemmycalak.listrepository.R
 import com.jemmycalak.listrepository.adapater.ListRepositoryAdapter
 import com.jemmycalak.listrepository.databinding.FragmentListRepositoryBinding
 import com.jemmycalak.listrepository.viewmodel.ListRespositoryViewModel
@@ -32,9 +32,9 @@ class ListRepositoryFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentListRepositoryBinding.inflate(inflater, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list_repository, container, false)
         binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
+        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -44,7 +44,6 @@ class ListRepositoryFragment : BaseFragment() {
     }
 
     private fun initUI() {
-        var timer = Timer()
         binding.recyclerView.apply {
             setHasFixedSize(true)
             adapter = ListRepositoryAdapter()
@@ -65,34 +64,12 @@ class ListRepositoryFragment : BaseFragment() {
                 }
             })
         }
-        binding.searchview.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                timer.cancel()
-                timer = Timer()
-                timer.schedule(object : TimerTask() {
-                    override fun run() {
-                        if (binding.searchview.text.toString().isNotEmpty()) {
-                            loader(false)
-                            page = 1
-                            viewModel.searchRepository(
-                                binding.searchview.text.toString(),
-                                page,
-                                10,
-                                false
-                            )
-                        }
-                    }
-                }, 1000)
-            }
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
     }
 
     override fun setupObserver(mviewModel: BaseViewModel) {
         super.setupObserver(mviewModel)
 
-        viewModel.dataRepository.observe(viewLifecycleOwner, Observer {
+        viewModel.dataRepository.observe(this, Observer {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     if (it.data?.items != null) {
@@ -107,6 +84,26 @@ class ListRepositoryFragment : BaseFragment() {
                     page--
                 }
             }
+        })
+
+        var timer = Timer()
+        viewModel.keyword.observe(this, Observer {
+            timer.cancel()
+            timer = Timer()
+            timer.schedule(object : TimerTask() {
+                override fun run() {
+                    if (binding.searchview.text.toString().isNotEmpty()) {
+                        loader(false)
+                        page = 1
+                        viewModel.searchRepository(
+                            binding.searchview.text.toString(),
+                            page,
+                            10,
+                            false
+                        )
+                    }
+                }
+            }, 1000)
         })
     }
 

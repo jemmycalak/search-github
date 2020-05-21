@@ -50,7 +50,8 @@
                     android:singleLine="true"
                     android:layout_marginLeft="@dimen/padding_8"
                     android:background="@android:color/transparent"
-                    android:focusableInTouchMode="true"/>
+                    android:focusableInTouchMode="true"
+                    android:text="@={viewModel.keyword}"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.AppBarLayout>
