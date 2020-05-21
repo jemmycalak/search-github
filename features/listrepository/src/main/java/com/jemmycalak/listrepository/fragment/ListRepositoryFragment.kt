@@ -58,7 +58,6 @@ class ListRepositoryFragment : BaseFragment() {
                     if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && !loadMore) {
                         if (totalItemCount < maxItem) {
                             loader(true)
-                            loadMore = true
                             page++
                             viewModel.searchRepository(binding.searchview.text.toString(), page, 10, false)
                         }
@@ -75,7 +74,6 @@ class ListRepositoryFragment : BaseFragment() {
                         if (binding.searchview.text.toString().isNotEmpty()) {
                             loader(false)
                             page = 1
-                            loadMore = false
                             viewModel.searchRepository(
                                 binding.searchview.text.toString(),
                                 page,
@@ -99,17 +97,21 @@ class ListRepositoryFragment : BaseFragment() {
                 Resource.Status.SUCCESS -> {
                     if (it.data?.items != null) {
                         (binding.recyclerView.adapter as ListRepositoryAdapter).addItem(it.data!!.items!!, loadMore)
+                        binding.layoutEmpty.visibility = if(it.data?.items!!.size > 0)View.GONE else View.VISIBLE
                         maxItem = it!!.data!!.totalCount!!
                     }
-                    binding.layoutEmpty.visibility = if(it.data?.items!!.size > 0)View.GONE else View.VISIBLE
-                    loadMore= false
+                    loader(false)
+                }
+                Resource.Status.ERROR -> {
+                    loader(false)
+                    page--
                 }
             }
-            loader(false)
         })
     }
 
     fun loader(isLoadMore: Boolean) {
+        loadMore= isLoadMore
         (binding.recyclerView.adapter as ListRepositoryAdapter).IS_AVAILABLE_PAGE = isLoadMore
     }
 }
