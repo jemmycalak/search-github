@@ -1,0 +1,14 @@
+apply plugin: 'kotlin-kapt'
+apply from: '../../android_feature.gradle'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+android {
+    defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+}
+
+dependencies{
+
+    api AndroidLibraries.matrialDesign
+}

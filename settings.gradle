@@ -1,0 +1,9 @@
+rootProject.name='SearchGithub'
+include ':app',
+        ':navigation',
+        ':common',
+        ':data:local',
+        ':data:repository',
+        ':data:remote',
+        ':data:model',
+        ':features:listrepository'

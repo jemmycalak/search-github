@@ -1,0 +1,27 @@
+apply plugin: 'com.android.library'
+apply from: '../android_commons.gradle'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    dataBinding {
+        enabled true
+    }
+}
+
+dependencies {
+
+    api project(Modules.local)
+
+    api project(Modules.repository)
+    api project(Modules.navigation)
+
+    api Libraries.koin
+    api Libraries.koinCore
+    api Libraries.koinViewModel
+    // ANDROID
+    api AndroidLibraries.lifecycleViewModel
+    api AndroidLibraries.lifecycleExtensions
+    api project(Modules.navigation)
+    api Libraries.glide
+}
