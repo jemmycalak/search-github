@@ -35,7 +35,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:title="@{m.login}"
-            android:textColor="@android:color/black"
+            android:textColor="@color/textRepository"
             android:textSize="@dimen/text_14"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -59,6 +59,7 @@ class ListRepositoryAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
         if(!isLoadMore)data.clear()
         data.addAll(mdata)
         notifyDataSetChanged()
+        IS_AVAILABLE_PAGE = false
     }
 
 }

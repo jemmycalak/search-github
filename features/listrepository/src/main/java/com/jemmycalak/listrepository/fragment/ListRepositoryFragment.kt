@@ -32,9 +32,9 @@ class ListRepositoryFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list_repository, container, false)
+        binding = FragmentListRepositoryBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -69,7 +69,7 @@ class ListRepositoryFragment : BaseFragment() {
     override fun setupObserver(mviewModel: BaseViewModel) {
         super.setupObserver(mviewModel)
 
-        viewModel.dataRepository.observe(this, Observer {
+        viewModel.dataRepository.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     if (it.data?.items != null) {
@@ -87,17 +87,18 @@ class ListRepositoryFragment : BaseFragment() {
         })
 
         var timer = Timer()
-        viewModel.keyword.observe(this, Observer {
+        viewModel.keyword.observe(viewLifecycleOwner, Observer {
             timer.cancel()
             timer = Timer()
             timer.schedule(object : TimerTask() {
                 override fun run() {
                     if (binding.searchview.text.toString().isNotEmpty()) {
-                        loader(false)
-                        page = 1
+                        //loader(false)
+                        viewModel.page = 1
+                        viewModel.loadMore = false
                         viewModel.searchRepository(
                             binding.searchview.text.toString(),
-                            page,
+                            viewModel.page,
                             10,
                             false
                         )

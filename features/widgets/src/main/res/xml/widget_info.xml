@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:initialKeyguardLayout="@layout/layout_widget_1"
+    android:initialLayout="@layout/layout_widget_1"
+    android:minHeight="@dimen/min_height_widget_100"
+    android:minWidth="@dimen/min_width_widget_250"
+    android:previewImage="@drawable/ic_munckin"
+    android:resizeMode="horizontal"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen"
+    tools:targetApi="jelly_bean_mr1"/>

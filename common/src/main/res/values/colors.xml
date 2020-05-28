@@ -3,4 +3,9 @@
     <color name="colorPrimary">#49a7b9</color>
     <color name="colorPrimaryDark">#3e97a7</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <!--Component-->
+    <color name="textRepository">@android:color/black</color>
+    <color name="backgroundColor">@android:color/white</color>
+    <!--Component-->
 </resources>

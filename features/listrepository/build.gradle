@@ -1,6 +1,8 @@
 apply plugin: 'kotlin-kapt'
 apply from: '../../android_feature.gradle'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     defaultConfig {
@@ -8,7 +10,10 @@ android {
     }
 }
 
-dependencies{
+dependencies {
 
     api AndroidLibraries.matrialDesign
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }

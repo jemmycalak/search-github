@@ -8,6 +8,7 @@ import com.jemmycalak.common.base.BaseViewModel
 import com.jemmycalak.common.utils.ErrorHandler
 import com.jemmycalak.common.utils.Event
 import com.jemmycalak.listrepository.domain.Services
+import com.jemmycalak.listrepository.fragment.ListRepositoryFragmentDirections
 import com.jemmycalak.model.Repository
 import com.jemmycalak.repository.utils.AppDispatchers
 import com.jemmycalak.repository.utils.Resource
@@ -20,6 +21,8 @@ class ListRespositoryViewModel(
 ) : BaseViewModel(dispatchers) {
 
     val keyword = MutableLiveData<String>("github")
+    var page = 1
+    var loadMore = false
 
     private val _repositoryMediator = MediatorLiveData<Resource<Repository>>()
     private var repositoryResource: LiveData<Resource<Repository>> =
@@ -50,5 +53,9 @@ class ListRespositoryViewModel(
                 _repositoryMediator.postValue(it)
             }
         }
+    }
+
+    fun onDetailRepository(){
+        ListRepositoryFragmentDirections.listRepoToDetailRepo()
     }
 }

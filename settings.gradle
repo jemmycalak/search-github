@@ -6,4 +6,5 @@ include ':app',
         ':data:repository',
         ':data:remote',
         ':data:model',
-        ':features:listrepository'
+        ':features:listrepository',
+        ':features:widgets'

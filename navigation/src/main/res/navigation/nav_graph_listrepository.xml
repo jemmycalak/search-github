@@ -8,7 +8,14 @@
         android:id="@+id/listRepository"
         android:name="com.jemmycalak.listrepository.fragment.ListRepositoryFragment"
         android:label="">
+        <action
+            android:id="@+id/listRepo_to_detailRepo"
+            app:destination="@+id/detailRepository"/>
+    </fragment>
 
+    <fragment
+        android:id="@+id/detailRepository"
+        android:name="com.jemmycalak.listrepository.fragment.DetailRepositoryFragment">
     </fragment>
 
 </navigation>

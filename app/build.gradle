@@ -39,6 +39,7 @@ dependencies {
     implementation project(Modules.local)
     implementation project(Modules.remote)
     implementation project(Modules.repository)
+    implementation project(Modules.widgets)
     // NAVIGATION
     implementation project(Modules.navigation)
     // KOIN
