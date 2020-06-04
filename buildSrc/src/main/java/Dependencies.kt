@@ -101,6 +101,7 @@ object Modules {
     const val repository = ":data:repository"
     const val listrepository = ":features:listrepository"
     const val widgets = ":features:widgets"
+    const val auth = ":features:auth"
 }
 
 

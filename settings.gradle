@@ -1,3 +1,4 @@
+include ':features:auth'
 rootProject.name='SearchGithub'
 include ':app',
         ':navigation',
@@ -7,4 +8,5 @@ include ':app',
         ':data:remote',
         ':data:model',
         ':features:listrepository',
-        ':features:widgets'
+        ':features:widgets',
+        ':features:auth'

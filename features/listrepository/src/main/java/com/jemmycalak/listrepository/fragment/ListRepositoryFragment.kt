@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jemmycalak.common.base.BaseFragment
 import com.jemmycalak.common.base.BaseViewModel
-import com.jemmycalak.listrepository.R
 import com.jemmycalak.listrepository.adapater.ListRepositoryAdapter
 import com.jemmycalak.listrepository.databinding.FragmentListRepositoryBinding
 import com.jemmycalak.listrepository.viewmodel.ListRespositoryViewModel
@@ -20,22 +18,23 @@ import java.util.*
 
 class ListRepositoryFragment : BaseFragment() {
 
-    val viewModel: ListRespositoryViewModel by viewModel()
+    val vModel: ListRespositoryViewModel by viewModel()
     lateinit var binding: FragmentListRepositoryBinding
     var loadMore = false
     var page = 1
     var maxItem = 0
 
-    override fun getViewModel(): BaseViewModel = viewModel
+    override fun getViewModel(): BaseViewModel = vModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentListRepositoryBinding.inflate(inflater, container, false)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
+        return FragmentListRepositoryBinding.inflate(inflater, container, false).apply {
+            viewModel = vModel
+            lifecycleOwner = viewLifecycleOwner
+            binding = this
+        }.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -58,7 +57,7 @@ class ListRepositoryFragment : BaseFragment() {
                         if (totalItemCount < maxItem) {
                             loader(true)
                             page++
-                            viewModel.searchRepository(binding.searchview.text.toString(), page, 10, false)
+                            vModel.searchRepository(binding.searchview.text.toString(), page, 10, false)
                         }
                     }
                 }
@@ -69,7 +68,7 @@ class ListRepositoryFragment : BaseFragment() {
     override fun setupObserver(mviewModel: BaseViewModel) {
         super.setupObserver(mviewModel)
 
-        viewModel.dataRepository.observe(viewLifecycleOwner, Observer {
+        vModel.dataRepository.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     if (it.data?.items != null) {
@@ -87,18 +86,18 @@ class ListRepositoryFragment : BaseFragment() {
         })
 
         var timer = Timer()
-        viewModel.keyword.observe(viewLifecycleOwner, Observer {
+        vModel.keyword.observe(viewLifecycleOwner, Observer {
             timer.cancel()
             timer = Timer()
             timer.schedule(object : TimerTask() {
                 override fun run() {
                     if (binding.searchview.text.toString().isNotEmpty()) {
                         //loader(false)
-                        viewModel.page = 1
-                        viewModel.loadMore = false
-                        viewModel.searchRepository(
+                        vModel.page = 1
+                        vModel.loadMore = false
+                        vModel.searchRepository(
                             binding.searchview.text.toString(),
-                            viewModel.page,
+                            vModel.page,
                             10,
                             false
                         )

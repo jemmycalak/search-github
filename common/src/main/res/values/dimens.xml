@@ -10,4 +10,6 @@
     <dimen name="image_300">300dp</dimen>
     <dimen name="min_width_widget_250">250dp</dimen>
     <dimen name="min_height_widget_100">100dp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="padding_5">5dp</dimen>
 </resources>

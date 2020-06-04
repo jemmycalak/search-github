@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.jemmycalak.listrepository.R
 import com.jemmycalak.listrepository.databinding.ItemRepositoryBinding
+import com.jemmycalak.listrepository.fragment.ListRepositoryFragmentDirections
 import com.jemmycalak.model.Item
 
 class ListRepositoryAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
@@ -49,7 +51,12 @@ class ListRepositoryAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
 
     inner class RepositoryViewHolder(val binding: ItemRepositoryBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Item, position: Int) {
-                binding.m = data
+            binding.root.apply {
+                setOnClickListener {
+                    findNavController().navigate(ListRepositoryFragmentDirections.listRepoToDetailRepo())
+                }
+            }
+            binding.m = data
         }
     }
 
