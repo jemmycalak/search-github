@@ -9,7 +9,9 @@
         android:name="com.jemmycalak.auth.fragment.LoginFragment">
         <action
             android:id="@+id/login_to_listRepo"
-            app:destination="@+id/listRepository"/>
+            app:destination="@+id/listRepository"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/loginFragment"/>
     </fragment>
 
     <fragment
